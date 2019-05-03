@@ -1,0 +1,142 @@
+PODS:
+  - Alamofire (4.8.2)
+  - Auth0 (1.15.0):
+    - SimpleKeychain
+  - CryptoSwift (0.15.0)
+  - Firebase/Core (5.20.2):
+    - Firebase/CoreOnly
+    - FirebaseAnalytics (= 5.8.1)
+  - Firebase/CoreOnly (5.20.2):
+    - FirebaseCore (= 5.4.1)
+  - Firebase/Storage (5.20.2):
+    - Firebase/CoreOnly
+    - FirebaseStorage (= 3.1.1)
+  - FirebaseAnalytics (5.8.1):
+    - FirebaseCore (~> 5.4)
+    - FirebaseInstanceID (~> 3.8)
+    - GoogleAppMeasurement (= 5.8.1)
+    - GoogleUtilities/AppDelegateSwizzler (~> 5.2)
+    - GoogleUtilities/MethodSwizzler (~> 5.2)
+    - GoogleUtilities/Network (~> 5.2)
+    - "GoogleUtilities/NSData+zlib (~> 5.2)"
+    - nanopb (~> 0.3)
+  - FirebaseAuthInterop (1.0.0)
+  - FirebaseCore (5.4.1):
+    - GoogleUtilities/Environment (~> 5.2)
+    - GoogleUtilities/Logger (~> 5.2)
+  - FirebaseInstanceID (3.8.1):
+    - FirebaseCore (~> 5.2)
+    - GoogleUtilities/Environment (~> 5.2)
+    - GoogleUtilities/UserDefaults (~> 5.2)
+  - FirebaseStorage (3.1.1):
+    - FirebaseAuthInterop (~> 1.0)
+    - FirebaseCore (~> 5.2)
+    - GTMSessionFetcher/Core (~> 1.1)
+  - GoogleAppMeasurement (5.8.1):
+    - GoogleUtilities/AppDelegateSwizzler (~> 5.2)
+    - GoogleUtilities/MethodSwizzler (~> 5.2)
+    - GoogleUtilities/Network (~> 5.2)
+    - "GoogleUtilities/NSData+zlib (~> 5.2)"
+    - nanopb (~> 0.3)
+  - GoogleUtilities/AppDelegateSwizzler (5.8.0):
+    - GoogleUtilities/Environment
+    - GoogleUtilities/Logger
+    - GoogleUtilities/Network
+  - GoogleUtilities/Environment (5.8.0)
+  - GoogleUtilities/Logger (5.8.0):
+    - GoogleUtilities/Environment
+  - GoogleUtilities/MethodSwizzler (5.8.0):
+    - GoogleUtilities/Logger
+  - GoogleUtilities/Network (5.8.0):
+    - GoogleUtilities/Logger
+    - "GoogleUtilities/NSData+zlib"
+    - GoogleUtilities/Reachability
+  - "GoogleUtilities/NSData+zlib (5.8.0)"
+  - GoogleUtilities/Reachability (5.8.0):
+    - GoogleUtilities/Logger
+  - GoogleUtilities/UserDefaults (5.8.0):
+    - GoogleUtilities/Logger
+  - GTMSessionFetcher/Core (1.2.1)
+  - Kingfisher (5.4.0)
+  - nanopb (0.3.901):
+    - nanopb/decode (= 0.3.901)
+    - nanopb/encode (= 0.3.901)
+  - nanopb/decode (0.3.901)
+  - nanopb/encode (0.3.901)
+  - Popover (1.2.2)
+  - PusherSwift (7.0.0):
+    - CryptoSwift (~> 0.9)
+    - ReachabilitySwift (= 4.3.0)
+    - Starscream (~> 3.0.5)
+  - PushNotifications (2.0.0)
+  - ReachabilitySwift (4.3.0)
+  - SimpleKeychain (0.9.0)
+  - Starscream (3.0.6)
+  - SwiftKeychainWrapper (3.2.0)
+  - TUSafariActivity (1.0.4)
+
+DEPENDENCIES:
+  - Alamofire
+  - Auth0
+  - Firebase/Core
+  - Firebase/Storage
+  - Kingfisher
+  - Popover
+  - PusherSwift
+  - PushNotifications
+  - SimpleKeychain
+  - SwiftKeychainWrapper
+  - TUSafariActivity (~> 1.0)
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - Alamofire
+    - Auth0
+    - CryptoSwift
+    - Firebase
+    - FirebaseAnalytics
+    - FirebaseAuthInterop
+    - FirebaseCore
+    - FirebaseInstanceID
+    - FirebaseStorage
+    - GoogleAppMeasurement
+    - GoogleUtilities
+    - GTMSessionFetcher
+    - Kingfisher
+    - nanopb
+    - Popover
+    - PusherSwift
+    - PushNotifications
+    - ReachabilitySwift
+    - SimpleKeychain
+    - Starscream
+    - SwiftKeychainWrapper
+    - TUSafariActivity
+
+SPEC CHECKSUMS:
+  Alamofire: ae5c501addb7afdbb13687d7f2f722c78734c2d3
+  Auth0: b741c805711a80eb698fce55d354cc32e0784dce
+  CryptoSwift: 769f58a9e89f64e8796c2e59ce5f002dc81a2438
+  Firebase: 0c8cf33f266410c61ab3e2265cfa412200351d9c
+  FirebaseAnalytics: ece1aa57a4f43c64d53a648b5a5e05151aae947b
+  FirebaseAuthInterop: 0ffa57668be100582bb7643d4fcb7615496c41fc
+  FirebaseCore: f1a9a8be1aee4bf71a2fc0f4096df6788bdfda61
+  FirebaseInstanceID: a122b0c258720cf250551bb2bedf48c699f80d90
+  FirebaseStorage: 6162ef4322502b818d9de0ec552f5226d283de43
+  GoogleAppMeasurement: ffe513e90551844a739e7bcbb1d2aca1c28a4338
+  GoogleUtilities: 04fce34bcd5620c1ee76fb79172105c74a4df335
+  GTMSessionFetcher: 32aeca0aa144acea523e1c8e053089dec2cb98ca
+  Kingfisher: 9c8f2cc6710334e06f32ba2b45e77707d5e2f0c9
+  nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
+  Popover: 21e357f86d45c8d9e29a41a4adbca3664d6e511f
+  PusherSwift: d15d6290be0b0b57fd9ac80b03661a6ba24623ec
+  PushNotifications: db23723ad406eeeae365b9ba8f473bf0a54be093
+  ReachabilitySwift: 408477d1b6ed9779dba301953171e017c31241f3
+  SimpleKeychain: 3be49072fd2d82de8fa83d847ef1e548622f8fc5
+  Starscream: ef3ece99d765eeccb67de105bfa143f929026cf5
+  SwiftKeychainWrapper: 82c4c02cdc36f9a24f7edfcaab3e336401caa1a1
+  TUSafariActivity: afc55a00965377939107ce4fdc7f951f62454546
+
+PODFILE CHECKSUM: ec8bcaeeeb449e715484ed554c5d299ea8aba954
+
+COCOAPODS: 1.6.1
