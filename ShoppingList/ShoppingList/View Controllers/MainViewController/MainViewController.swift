@@ -10,7 +10,7 @@ import UIKit
 import Auth0
 import PushNotifications
 
-enum GroupView { case list, history, stats }
+enum GroupView { case chore, grocery, history, stats }
 
 class MainViewController: UIViewController, StoryboardInstantiatable, PopoverViewDelegate {
     
@@ -23,9 +23,9 @@ class MainViewController: UIViewController, StoryboardInstantiatable, PopoverVie
     @IBOutlet weak var segmentedControl: UISegmentedControl!
     @IBOutlet weak var checkoutCountView: UIView!
     @IBOutlet weak var checkoutCountLabel: UILabel!
+    @IBOutlet weak var addNewButton: UIButton!
     
-    
-    var currentView: GroupView = .list { didSet { updatesNeeded() }}
+    var currentView: GroupView = .grocery { didSet { updatesNeeded() }}
     
     // MARK: - Lifecycle methods
     
@@ -67,13 +67,13 @@ class MainViewController: UIViewController, StoryboardInstantiatable, PopoverVie
     @IBAction func segmentControlSwitched(_ sender: UISegmentedControl) {
         switch sender.selectedSegmentIndex {
         case 0:
-            currentView = .list
+            currentView = .chore
         case 1:
-            currentView = .history
+            currentView = .grocery
         case 2:
-            currentView = .stats
+            currentView = .history
         default:
-            currentView = .list
+            currentView = .chore
         }
     }
     
@@ -85,9 +85,19 @@ class MainViewController: UIViewController, StoryboardInstantiatable, PopoverVie
         checkoutContainer.alpha = 0
         
         switch currentView {
-        case .list:
+        case .chore:
             ItemController.shared.loadItems { (_) in
                 UI {
+                    self.addNewButton.setTitle("Add chore", for: .normal)
+                    self.tableView.rowHeight = 90
+                    self.addNewItemContainer.alpha = 1
+                    self.tableView.reloadData()
+                }
+            }
+        case .grocery:
+            ItemController.shared.loadItems { (_) in
+                UI {
+                    self.addNewButton.setTitle("Add grocery", for: .normal)
                     self.tableView.rowHeight = 90
                     self.addNewItemContainer.alpha = 1
                     self.tableView.reloadData()
@@ -151,7 +161,7 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch currentView {
-        case .list:
+        case .chore, .grocery:
             noItemsView.alpha = (selectedGroup?.items?.count ?? 0) == 0 ? 1 : 0
             return selectedGroup?.items?.count ?? 0
         case .history:
@@ -177,7 +187,7 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
         guard let selectedGroup = selectedGroup else { return cell }
         
         switch currentView {
-        case .list:
+        case .chore, .grocery:
             guard let item = selectedGroup.items?[indexPath.row] else { return cell }
             itemCell.accessoryType = selectedItems.contains(item) ? .checkmark : .none
             itemCell.itemLabel.text = item.name
@@ -220,12 +230,12 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
             self.tableView.deleteRows(at: [indexPath], with: .automatic)
         }
         
-        return currentView == .list ? [delete] : []
+        return currentView == .grocery ? [delete] : []
     }
     
     private func cellSelected(cell: UITableViewCell, indexPath: IndexPath) {
         switch currentView {
-        case .list:
+        case .chore, .grocery:
             guard let item = selectedGroup?.items?[indexPath.row] else { return }
             if cell.accessoryType == .none {
                 selectedItems.append(item)
@@ -239,7 +249,7 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
             break
         }
         
-        if currentView == .list {
+        if currentView == .chore, currentView == .grocery {
             let showCheckout = selectedItems.count > 0
             addNewItemContainer.alpha = showCheckout ? 0 : 1
             checkoutContainer.alpha = showCheckout ? 1 : 0

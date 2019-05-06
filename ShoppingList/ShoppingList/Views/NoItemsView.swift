@@ -16,10 +16,12 @@ class NoItemsView: UIView, NibInstantiatable {
     private func updateViews() {
         guard let groupView = groupView else { return }
         switch groupView {
-        case .list:
-            textLabel.text = "No items to buy in this group"
+        case .chore:
+            textLabel.text = "No chores to complete in this group"
+        case .grocery:
+            textLabel.text = "No grocey to buy in this group"
         case .history:
-            textLabel.text = "No items have been bought yet"
+            textLabel.text = "Nothing completed yet"
         case .stats:
             textLabel.text = ""
         }
