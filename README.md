@@ -1,1 +1,1 @@
-# labs12-chores-1-iOS
+# labs12 Fairshare iOS application
