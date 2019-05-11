@@ -25,7 +25,7 @@ class GroupController {
     }
     
     static let shared = GroupController()
-    private var baseURL = URL(string: "https://shoptrak-backend.herokuapp.com/api/")!
+    private var baseURL = URL(string: "https://labs12-fairshare.herokuapp.com/")!
     
     func getUserID(completion: @escaping (Profile?) -> Void) {
         guard let accessToken = SessionManager.tokens?.idToken else {return}
