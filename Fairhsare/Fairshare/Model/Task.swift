@@ -10,19 +10,19 @@ import Foundation
 
 class Task:Codable {
     let id: Int?
-    let taskName: String
+    let taskName: String // Should have a value
     let description: String?
     let completed: Bool?
-    let completedBy: Int?
+    let completedBy: Int? // User id
     let completedOn: Date?
-    let groupID: Int
+    let groupID: Int // Should have a value
     
-    init(id: Int?,
+    init(id: Int? = nil,
          taskName: String,
-         description: String?,
-         completed: Bool?,
-         completedBy: Int?,
-         completedOn: Date?,
+         description: String? = nil,
+         completed: Bool? = nil,
+         completedBy: Int? = nil,
+         completedOn: Date? = nil,
          groupID: Int) {
         
         self.id = id

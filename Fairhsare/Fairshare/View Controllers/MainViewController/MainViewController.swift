@@ -25,7 +25,7 @@ class MainViewController: UIViewController, StoryboardInstantiatable, PopoverVie
     @IBOutlet weak var checkoutCountLabel: UILabel!
     @IBOutlet weak var addNewButton: UIButton!
     
-    var currentView: GroupView = .grocery { didSet { updatesNeeded() }}
+    var currentView: GroupView = .chore { didSet { updatesNeeded() }}
     
     // MARK: - Lifecycle methods
     
