@@ -24,39 +24,56 @@ class GroupController {
         let name: String
     }
     
+    struct Param: Codable {
+        let userID: Int
+        let name: String
+        let token: String
+    }
+    
     static let shared = GroupController()
-    private var baseURL = URL(string: "https://labs12-fairshare.herokuapp.com/")!
+    private var baseURL = URL(string: "http://localhost:9000/api")!
     
     func getUserID(completion: @escaping (Profile?) -> Void) {
-        guard let accessToken = SessionManager.tokens?.idToken else {return}
-        let url = baseURL.appendingPathComponent("user").appendingPathComponent("check").appendingPathComponent("getid")
-        var request = URLRequest(url: url)
+        let user = User(id: 1, name: "Ilqar Ilyasov")
+        let profile = Profile(profile: user)
+        completion(profile)
         
-        request.addValue("Bearer \(accessToken)", forHTTPHeaderField: "Authorization")
-        
-        Alamofire.request(request).validate().responseData { (response) in
-            
-            switch response.result {
-            case .success(let value):
-                
-                do {
-                    let decoder = JSONDecoder()
-                    let user = try decoder.decode(Profile.self, from: value)
-                    completion(user)
-                    
-                } catch {
-                    print("Could not turn json into user")
-                    completion(nil)
-                    return
-                }
-                
-            case .failure(let error):
-                NSLog("getUser: \(error.localizedDescription)")
-                completion(nil)
-                return
-            }
-        }
-        
+//        guard let accessToken = SessionManager.tokens?.idToken else {return}
+//
+//        let url = baseURL.appendingPathComponent("user").appendingPathComponent("check").appendingPathComponent("getid")
+//        var request = URLRequest(url: url)
+//
+//        request.addValue("Bearer \(accessToken)", forHTTPHeaderField: "Authorization")
+//        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+//
+//        URLSession.shared.dataTask(with: request) { (data, response, error) in
+//
+//            if let error = error {
+//                NSLog("getUserID Error: \(error)")
+//                completion(nil)
+//                return
+//            }
+//
+//            if let response = response as? HTTPURLResponse {
+//                NSLog("getUserID Response: \(response.statusCode)")
+//            }
+//
+//            guard let data = data else {
+//                NSLog("getUserID No data returned")
+//                completion(nil)
+//                return
+//            }
+//
+//            do {
+//                let decoder = JSONDecoder()
+//                let user = try decoder.decode(Profile.self, from: data)
+//                completion(user)
+//            } catch {
+//                print("Could not turn json into user")
+//                completion(nil)
+//                return
+//            }
+//        }.resume()
     }
     
     
@@ -79,46 +96,64 @@ class GroupController {
     
     func newGroup(withName name: String, completion: @escaping (Group?) -> Void) {
         
-        guard let accessToken = SessionManager.tokens?.idToken else {return}
+        let groupID = getRandomNumber()
+        let group = Group(name: name, userID: userID, token: "123", groupID: groupID)
+        completion(group)
         
-        self.getUserID { (id) in
-            
-            guard let userID = id?.profile.id else { completion(nil); return }
-            
-            let headers: HTTPHeaders = [ "Authorization": "Bearer \(accessToken)"]
-            let url = self.baseURL.appendingPathComponent("group")
-            
-            let token = "12345"
-            
-            let parameters: Parameters = ["userID": userID, "name": name, "token": token]
-            
-            Alamofire.request(url, method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: headers).validate().responseJSON { (response) in
-                
-                
-                switch response.result {
-                case .success(let value):
-                    
-                    guard let jsonDict = value as? [String: Any],
-                        let group = jsonDict["group"] as? [String: Any],
-                        let groupID = group["id"] as? Int
-                        
-                        else {
-                            print("Could not get groupID from API response")
-                            completion(nil)
-                            return
-                    }
-                    
-                    let newGroup = Group(name: name, userID: userID, token: token, groupID: groupID)
-                    
-                    completion(newGroup)
-                    
-                case .failure(let error):
-                    print(error.localizedDescription)
-                    completion(nil)
-                    return
-                }
-            }
-        }
+//        guard let accessToken = SessionManager.tokens?.idToken else {return}
+//
+//        self.getUserID { (id) in
+//
+//            guard let userID = id?.profile.id else { completion(nil); return }
+//
+//            let url = self.baseURL.appendingPathComponent("group")
+//
+//            var request = URLRequest(url: url)
+//            request.httpMethod = "POST"
+//
+//            request.addValue("Bearer \(accessToken)", forHTTPHeaderField: "Authorization")
+//            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+//
+//            let params = Param(userID: userID, name: name, token: accessToken)
+//
+//            do {
+//                let encoder = JSONEncoder()
+//                let body = try encoder.encode(params)
+//                request.httpBody = body
+//
+//            } catch {
+//                print("Could not turn params into json")
+//                return
+//            }
+//
+//            URLSession.shared.dataTask(with: request) { (data, response, error) in
+//
+//                if let error = error {
+//                    NSLog("newGroup Error: \(error)")
+//                    completion(nil)
+//                    return
+//                }
+//
+//                if let response = response as? HTTPURLResponse{
+//                    NSLog("newGroup Response: \(response.statusCode)")
+//                }
+//
+//                guard let data = data else {
+//                    NSLog("newGroup No data")
+//                    completion(nil)
+//                    return
+//                }
+//
+//                do {
+//                    let decoder = JSONDecoder()
+//                    let group = try decoder.decode(Group.self, from: data)
+//                    completion(group)
+//                } catch {
+//                    NSLog("newGroup Couldn't turn json to Group")
+//                    completion(nil)
+//                }
+//                }.resume()
+//        }
     }
     
     
@@ -180,45 +215,54 @@ class GroupController {
         completion: @escaping (Bool) -> Void = { _ in }
         ) {
         
-        guard let accessToken = SessionManager.tokens?.idToken else {return}
+        let group = Group(name: "Demo", userID: 1, token: "123", groupID: 1)
+        let list = GroupsList(groups: [group])
+        allGroups = list.groups
+        completion(true)
         
-        let url = baseURL.appendingPathComponent("group").appendingPathComponent("user").appendingPathComponent(String(userID))
-        
-        
-        var request = URLRequest(url: url)
-        
-        request.addValue("Bearer \(accessToken)", forHTTPHeaderField: "Authorization")
-        
-        Alamofire.request(request).validate().responseData { (response) in
-            switch response.result {
-            case .success(let value):
-                
-                do {
-                    
-                    let decoder = JSONDecoder()
-                    let groups = try decoder.decode(GroupsList.self, from: value)
-                    
-                    allGroups = groups.groups
-                    
-                    for group in groups.groups {
-                        let chan = "group-\(group.groupID)"
-                        try! PushNotifications.shared.addDeviceInterest(interest:chan)
-                    }
-                    
-                    completion(true)
-                    
-                } catch {
-                    print("Error getting groups from API response\(error)")
-                    completion(false)
-                    return
-                }
-                
-            case .failure(let error):
-                print(error.localizedDescription)
-                completion(false)
-                return
-            }
-        }
+//        guard let accessToken = SessionManager.tokens?.idToken else {return}
+//        
+//        let url = baseURL.appendingPathComponent("group").appendingPathComponent("user").appendingPathComponent(String(userID))
+//        
+//        var request = URLRequest(url: url)
+//        
+//        request.addValue("Bearer \(accessToken)", forHTTPHeaderField: "Authorization")
+//        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+//        
+//        URLSession.shared.dataTask(with: request) { (data, response, error) in
+//            if let error = error {
+//                NSLog("getGroups Error: \(error)")
+//                completion(false)
+//                return
+//            }
+//
+//            if let response = response as? HTTPURLResponse {
+//                NSLog("getGroups Response: \(response.statusCode)")
+//            }
+
+//            guard let data = data else {
+//                NSLog("getGroups No data")
+//                completion(false)
+//                return
+//            }
+
+//            do {
+//                let decoder = JSONDecoder()
+//                let groups = try decoder.decode(GroupsList.self, from: data)
+//
+//                allGroups = groups.groups
+//
+//                for group in groups.groups {
+//                    let chan = "group-\(group.groupID)"
+//                    try! PushNotifications.shared.addDeviceInterest(interest:chan)
+//                }
+//                completion(true)
+//            } catch {
+//                print("Error getting groups from API response\(error)")
+//                completion(false)
+//                return
+//            }
+//        }.resume()
     }
     
     func delete(group: Group, completion: @escaping (Bool) -> Void) {
@@ -235,12 +279,8 @@ class GroupController {
                 completion(false)
                 return
             }
-            
             completion(true)
-            
         }
-        
     }
-    
     
 }

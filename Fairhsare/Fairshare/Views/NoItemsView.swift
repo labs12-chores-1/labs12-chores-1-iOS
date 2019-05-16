@@ -19,7 +19,7 @@ class NoItemsView: UIView, NibInstantiatable {
         case .chore:
             textLabel.text = "No chores to complete in this group"
         case .grocery:
-            textLabel.text = "No grocey to buy in this group"
+            textLabel.text = "No grocery to buy in this group"
         case .history:
             textLabel.text = "Nothing completed yet"
         case .stats:

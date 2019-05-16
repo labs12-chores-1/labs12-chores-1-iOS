@@ -16,7 +16,7 @@ import FirebaseStorage
 class UserController {
     
     static let shared = UserController()
-    private var baseURL = URL(string: "https://shoptrak-backend.herokuapp.com/api/")!
+    private var baseURL = URL(string: "http://localhost:9000/api")!
     
     private func userToJSON(user: User) -> [String: Any]? {
         
@@ -196,36 +196,40 @@ class UserController {
     
     
     func getUser(forID id: Int, completion: @escaping (Bool) -> Void) {
-        guard let accessToken = SessionManager.tokens?.idToken else {return}
-        let url = baseURL.appendingPathComponent("user").appendingPathComponent(String(id))
-         var request = URLRequest(url: url)
-       
-        request.addValue("Bearer \(accessToken)", forHTTPHeaderField: "Authorization")
-               
-        Alamofire.request(request).validate().responseData { (response) in
- 
-            switch response.result {
-            case .success(let value):
-                
-                do {
-                    let decoder = JSONDecoder()
-                    let user = try decoder.decode(User.self, from: value)
-                    userObject = user
-                    completion(true)
-                    
-                } catch {
-                    print("Could not turn json into user")
-                    completion(false)
-                    return
-                }
-                
-            case .failure(let error):
-                NSLog("getUser: \(error.localizedDescription)")
-                completion(false)
-                return
-            }
-        }
+        userObject = User(email: "imilqar@gmail.com", name: "Ilqar Ilyasov", profilePicture: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/PBS_1971_id.svg/220px-PBS_1971_id.svg.png")
+        completion(true)
         
+//        guard let accessToken = SessionManager.tokens?.idToken else {return}
+//        let url = baseURL.appendingPathComponent("user").appendingPathComponent(String(id))
+//         var request = URLRequest(url: url)
+//
+//        request.addValue("Bearer \(accessToken)", forHTTPHeaderField: "Authorization")
+//        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+//
+//        URLSession.shared.dataTask(with: request) { (data, response, error) in
+//            if let error = error {
+//                NSLog("getUserforID Error: \(error)")
+//                completion(false)
+//            }
+//
+//            guard let data = data else {
+//                NSLog("getUserforID no data returned")
+//                completion(false)
+//                return
+//            }
+//
+//            do {
+//                let decoder = JSONDecoder()
+//                let user = try decoder.decode(User.self, from: data)
+//                userObject = user
+//                completion(true)
+//
+//            } catch {
+//                print("Could not turn json into user")
+//                completion(false)
+//                return
+//            }
+//        }.resume()
     }
     
     
@@ -233,10 +237,6 @@ class UserController {
     // TODO: Remove this once we have way to get the real token
     func getToken() -> String {
         return "lalala"
-    }
-    
-    func getUserID() -> Int32 {
-        return Int32(123)
     }
     
 }

@@ -17,6 +17,10 @@ var selectedItems: [Item] = []
 var history: [History] = []
 var groupMembers: [GroupMember] = []
 
+func getRandomNumber() -> Int {
+    return Int.random(in: 1...100)
+}
+
 var userObject: User?
 
 // MARK: - Popovers
