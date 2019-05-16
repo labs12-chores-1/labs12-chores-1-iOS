@@ -64,6 +64,10 @@ class MainViewController: UIViewController, StoryboardInstantiatable, PopoverVie
         }
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+    }
+    
     @IBAction func segmentControlSwitched(_ sender: UISegmentedControl) {
         switch sender.selectedSegmentIndex {
         case 0:
