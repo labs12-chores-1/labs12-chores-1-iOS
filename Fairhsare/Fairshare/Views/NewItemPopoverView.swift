@@ -24,7 +24,13 @@ class NewItemPopoverView: UIView, NibInstantiatable {
         guard let selectedGroup = selectedGroup else { return }
         let newItem = Item(name: name, measurement: nil, purchased: false, price: 0, quantity: 0, group: selectedGroup)
         
-        ItemController.shared.saveItem(item: newItem) { (_, _) in
+        ItemController.shared.saveItem(item: newItem) { (item, _) in
+            
+            // If statement is just for  Mock
+            if let item = item {
+                selectedGroup.items?.append(item)
+            }
+            
             self.delegate?.updatesNeeded()
             popover.dismiss()
         }

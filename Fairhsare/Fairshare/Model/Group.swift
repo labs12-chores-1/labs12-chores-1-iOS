@@ -27,7 +27,8 @@ class Group: Codable, Equatable {
     
     var groupMembers: [GroupMember]?
     var trips: [Trip]?
-    var items: [Item]?
+    var items: [Item]? // api/group/id
+    var tasks: [Task]? // api/group/id
     
     enum CodingKeys: String, CodingKey {
         case name
