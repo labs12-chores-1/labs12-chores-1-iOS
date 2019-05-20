@@ -8,14 +8,14 @@
 
 import Foundation
 
-class Task:Codable {
-    let id: Int?
-    let taskName: String // Should have a value
-    let description: String?
-    let completed: Bool?
-    let completedBy: Int? // User id
-    let completedOn: Date?
-    let groupID: Int // Should have a value
+class Task: Codable {
+    var id: Int?
+    var taskName: String // Should have a value
+    var description: String?
+    var completed: Bool?
+    var completedBy: Int? // User id
+    var completedOn: Date?
+    var groupID: Int // Should have a value
     
     init(id: Int? = nil,
          taskName: String,
@@ -23,7 +23,7 @@ class Task:Codable {
          completed: Bool? = nil,
          completedBy: Int? = nil,
          completedOn: Date? = nil,
-         groupID: Int) {
+         group: Group) {
         
         self.id = id
         self.taskName = taskName
@@ -31,7 +31,7 @@ class Task:Codable {
         self.completed = completed
         self.completedBy = completedBy
         self.completedOn = completedOn
-        self.groupID = groupID
+        self.groupID = group.groupID
     }
 }
 
