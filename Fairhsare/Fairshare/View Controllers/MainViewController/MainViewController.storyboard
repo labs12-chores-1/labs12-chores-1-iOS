@@ -14,7 +14,7 @@
         <!--Main View Controller-->
         <scene sceneID="ivK-zN-Rm8">
             <objects>
-                <viewController id="WgK-Rm-0lC" customClass="MainViewController" customModule="ShoppingList" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="WgK-Rm-0lC" customClass="MainViewController" customModule="Fairshare" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="i2M-Tw-f80">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
