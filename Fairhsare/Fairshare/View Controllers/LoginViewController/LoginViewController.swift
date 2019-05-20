@@ -28,7 +28,7 @@ class LoginViewController: UIViewController, StoryboardInstantiatable {
         guard let clientInfo = plistValues(bundle: Bundle.main) else { return }
         Auth0
             .webAuth()
-            .scope("openid profile")
+            .scope("openid email profile")
             .audience("https://" + clientInfo.domain + "/userinfo")
             .start {
                 switch $0 {
