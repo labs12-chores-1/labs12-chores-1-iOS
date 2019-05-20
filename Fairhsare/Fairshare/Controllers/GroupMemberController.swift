@@ -13,7 +13,7 @@ import Auth0
 
 class GroupMemberController {
     
-    private var baseURL = URL(string: "https://shoptrak-backend.herokuapp.com/api/")!
+    private var baseURL = URL(string: "https://labs12-fairshare.herokuapp.com/api")!
     
     func getGroupMembers(completion: @escaping (Bool) -> Void) {
         

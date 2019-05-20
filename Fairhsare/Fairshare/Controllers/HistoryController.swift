@@ -15,7 +15,7 @@ class HistoryController {
     
     static let shared = HistoryController()
     
-    private var baseURL = URL(string: "https://shoptrak-backend.herokuapp.com/api/")!
+    private var baseURL = URL(string: "https://labs12-fairshare.herokuapp.com/api")!
     
     func getHistory(completion: @escaping (Bool) -> Void = { _ in }) {
         guard let accessToken = SessionManager.tokens?.idToken else {completion(false); return}

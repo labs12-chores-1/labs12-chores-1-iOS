@@ -10,7 +10,7 @@ import Foundation
 import Alamofire
 import Auth0
 
-private var baseURL = URL(string: "https://shoptrak-backend.herokuapp.com/api/")!
+private var baseURL = URL(string: "https://labs12-fairshare.herokuapp.com/api")!
 
 class InviteController {
     
