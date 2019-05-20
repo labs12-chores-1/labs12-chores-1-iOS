@@ -14,6 +14,7 @@ var userName: String = ""
 var allGroups: [Group] = []
 var selectedGroup: Group? = nil
 var selectedItems: [Item] = []
+var selectedTasks: [Task] = []
 var history: [History] = []
 var groupMembers: [GroupMember] = []
 
