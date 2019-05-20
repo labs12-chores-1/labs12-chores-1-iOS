@@ -11,27 +11,33 @@ import Foundation
 class Task: Codable {
     var id: Int?
     var taskName: String // Should have a value
-    var description: String?
+    var taskDescription: String?
     var completed: Bool?
     var completedBy: Int? // User id
     var completedOn: Date?
     var groupID: Int // Should have a value
+    var assigneeName: String?
+    var createdBy: String? // Current User name
     
     init(id: Int? = nil,
          taskName: String,
-         description: String? = nil,
+         taskDescription: String? = nil,
          completed: Bool? = nil,
          completedBy: Int? = nil,
          completedOn: Date? = nil,
-         group: Group) {
+         group: Group,
+         assigneeName: String? = nil,
+         createdBy: String? = nil) {
         
         self.id = id
         self.taskName = taskName
-        self.description = description
+        self.taskDescription = taskDescription
         self.completed = completed
         self.completedBy = completedBy
         self.completedOn = completedOn
         self.groupID = group.groupID
+        self.assigneeName = assigneeName
+        self.createdBy = createdBy
     }
 }
 
