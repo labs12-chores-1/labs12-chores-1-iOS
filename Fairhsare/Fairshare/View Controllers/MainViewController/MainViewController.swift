@@ -11,6 +11,7 @@ import Auth0
 import PushNotifications
 
 enum GroupView { case chore, grocery, history, stats }
+var globalCurrentView: GroupView = .chore
 
 class MainViewController: UIViewController, StoryboardInstantiatable, PopoverViewDelegate {
     
@@ -72,12 +73,16 @@ class MainViewController: UIViewController, StoryboardInstantiatable, PopoverVie
         switch sender.selectedSegmentIndex {
         case 0:
             currentView = .chore
+            globalCurrentView = .chore
         case 1:
             currentView = .grocery
+            globalCurrentView = .grocery
         case 2:
             currentView = .history
+            globalCurrentView = .history
         default:
             currentView = .chore
+            globalCurrentView = .chore
         }
     }
     
@@ -165,7 +170,10 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch currentView {
-        case .chore, .grocery:
+        case .chore:
+            noItemsView.alpha = (selectedGroup?.tasks?.count ?? 0) == 0 ? 1 : 0
+            return selectedGroup?.tasks?.count ?? 0
+        case .grocery:
             noItemsView.alpha = (selectedGroup?.items?.count ?? 0) == 0 ? 1 : 0
             return selectedGroup?.items?.count ?? 0
         case .history:
@@ -191,7 +199,12 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
         guard let selectedGroup = selectedGroup else { return cell }
         
         switch currentView {
-        case .chore, .grocery:
+        case .chore:
+            guard let task = selectedGroup.tasks?[indexPath.row] else { return cell }
+            itemCell.accessoryType = selectedTasks.contains(task) ? .checkmark : .none
+            itemCell.itemLabel.text = task.taskName
+            return itemCell
+        case .grocery:
             guard let item = selectedGroup.items?[indexPath.row] else { return cell }
             itemCell.accessoryType = selectedItems.contains(item) ? .checkmark : .none
             itemCell.itemLabel.text = item.name
@@ -253,7 +266,7 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
             break
         }
         
-        if currentView == .chore, currentView == .grocery {
+        if currentView == .chore || currentView == .grocery {
             let showCheckout = selectedItems.count > 0
             addNewItemContainer.alpha = showCheckout ? 0 : 1
             checkoutContainer.alpha = showCheckout ? 1 : 0

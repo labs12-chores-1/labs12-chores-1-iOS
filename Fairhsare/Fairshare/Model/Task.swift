@@ -8,30 +8,36 @@
 
 import Foundation
 
-class Task:Codable {
-    let id: Int?
-    let taskName: String // Should have a value
-    let description: String?
-    let completed: Bool?
-    let completedBy: Int? // User id
-    let completedOn: Date?
-    let groupID: Int // Should have a value
+class Task: Codable {
+    var id: Int?
+    var taskName: String // Should have a value
+    var taskDescription: String?
+    var completed: Bool?
+    var completedBy: Int? // User id
+    var completedOn: Date?
+    var groupID: Int // Should have a value
+    var assigneeName: String?
+    var createdBy: String? // Current User name
     
     init(id: Int? = nil,
          taskName: String,
-         description: String? = nil,
+         taskDescription: String? = nil,
          completed: Bool? = nil,
          completedBy: Int? = nil,
          completedOn: Date? = nil,
-         groupID: Int) {
+         group: Group,
+         assigneeName: String? = nil,
+         createdBy: String? = nil) {
         
         self.id = id
         self.taskName = taskName
-        self.description = description
+        self.taskDescription = taskDescription
         self.completed = completed
         self.completedBy = completedBy
         self.completedOn = completedOn
-        self.groupID = groupID
+        self.groupID = group.groupID
+        self.assigneeName = assigneeName
+        self.createdBy = createdBy
     }
 }
 
