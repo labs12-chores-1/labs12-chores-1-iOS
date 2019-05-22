@@ -109,7 +109,22 @@ class ItemController {
             
             do {
                 let taskList = try JSONDecoder().decode(TaskList.self, from: data)
-                group.tasks = taskList.data
+                group.tasks = [Task]() // Initiliaze array with empty value
+                
+                for task in taskList.data {
+                    if task.createdBy == userObject?.name { // Check the owner of task
+                        
+                        if let result = group.tasks?.contains(task) {
+                            switch result {
+                            case true: // If it's already inside of our local array do not do anything
+                                break
+                            case false: // If task is a new task then add it to the array
+                                group.tasks?.append(task)
+                            }
+                        }
+                    }
+                }
+                
                 completion(true)
             } catch {
                 print("Error: Could not decode data into [Item]")
