@@ -22,11 +22,11 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Gh5-PN-XX6" userLabel="Header view">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="146"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1US-cZ-UVz">
-                                        <rect key="frame" x="8" y="53" width="398" height="73"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="ZnW-hu-8KY">
+                                        <rect key="frame" x="8" y="78.5" width="398" height="29"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LW2-n1-6oy" userLabel="Dropdown button">
-                                                <rect key="frame" x="0.0" y="0.0" width="30" height="73"/>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LW2-n1-6oy" userLabel="Back button">
+                                                <rect key="frame" x="0.0" y="0.0" width="30" height="29"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="30" id="IZF-Vo-lef"/>
                                                 </constraints>
@@ -36,33 +36,21 @@
                                                     <action selector="didTapBackButton:" destination="rZ2-Tq-UPc" eventType="touchUpInside" id="XHA-Zc-2dU"/>
                                                 </connections>
                                             </button>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Back" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.60000002384185791" translatesAutoresizingMaskIntoConstraints="NO" id="aVl-M4-ePA">
-                                                <rect key="frame" x="30" y="0.0" width="322" height="73"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Back" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.60000002384185791" translatesAutoresizingMaskIntoConstraints="NO" id="aVl-M4-ePA" userLabel="Back label">
+                                                <rect key="frame" x="38" y="0.0" width="360" height="29"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UwF-iI-8cJ">
-                                                <rect key="frame" x="352" y="0.0" width="46" height="73"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="46" id="Ncv-Gw-i9x"/>
-                                                </constraints>
-                                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <inset key="contentEdgeInsets" minX="0.0" minY="-2" maxX="0.0" maxY="0.0"/>
-                                                <state key="normal" image="Options"/>
-                                                <connections>
-                                                    <action selector="didTapSettingButton:" destination="rZ2-Tq-UPc" eventType="touchUpInside" id="bKf-Ro-GPG"/>
-                                                </connections>
-                                            </button>
                                         </subviews>
                                     </stackView>
                                 </subviews>
                                 <color key="backgroundColor" name="Theme"/>
                                 <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="1US-cZ-UVz" secondAttribute="bottom" constant="20" id="QZe-77-rdF"/>
-                                    <constraint firstItem="1US-cZ-UVz" firstAttribute="leading" secondItem="Gh5-PN-XX6" secondAttribute="leading" constant="8" id="ow7-Dl-sJo"/>
-                                    <constraint firstAttribute="trailing" secondItem="1US-cZ-UVz" secondAttribute="trailing" constant="8" id="rsw-fm-sDt"/>
-                                    <constraint firstItem="1US-cZ-UVz" firstAttribute="height" secondItem="Gh5-PN-XX6" secondAttribute="height" multiplier="1/2" id="svK-5A-MQx"/>
+                                    <constraint firstItem="ZnW-hu-8KY" firstAttribute="centerX" secondItem="Gh5-PN-XX6" secondAttribute="centerX" id="6uH-BG-2kO"/>
+                                    <constraint firstItem="ZnW-hu-8KY" firstAttribute="leading" secondItem="Gh5-PN-XX6" secondAttribute="leading" constant="8" id="Djs-25-kgU"/>
+                                    <constraint firstAttribute="trailing" secondItem="ZnW-hu-8KY" secondAttribute="trailing" constant="8" id="Gwt-EH-hAo"/>
+                                    <constraint firstItem="ZnW-hu-8KY" firstAttribute="centerY" secondItem="Gh5-PN-XX6" secondAttribute="centerY" constant="20" id="JtL-zc-fjk"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowRadius">
@@ -93,13 +81,18 @@
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
-                                            <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DmZ-j2-3x6" userLabel="Scan barcode">
+                                            <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DmZ-j2-3x6">
                                                 <rect key="frame" x="300" y="0.0" width="82" height="56"/>
                                                 <color key="backgroundColor" name="Theme"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                                 <inset key="contentEdgeInsets" minX="20" minY="0.0" maxX="20" maxY="0.0"/>
                                                 <inset key="imageEdgeInsets" minX="2" minY="4" maxX="2" maxY="4"/>
                                                 <state key="normal" title="Send"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                        <integer key="value" value="8"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
                                                 <connections>
                                                     <action selector="didTapSendButton:" destination="rZ2-Tq-UPc" eventType="touchUpInside" id="oZf-es-S9T"/>
                                                 </connections>
@@ -145,6 +138,7 @@
                     </view>
                     <connections>
                         <outlet property="commentTextField" destination="JKk-Bb-3Wx" id="vht-4c-uoX"/>
+                        <outlet property="sendButton" destination="DmZ-j2-3x6" id="NTD-SP-Gwh"/>
                         <outlet property="tableView" destination="kko-Im-K7U" id="idm-4R-kak"/>
                     </connections>
                 </viewController>
@@ -155,7 +149,6 @@
     </scenes>
     <resources>
         <image name="BackChevron" width="12" height="21"/>
-        <image name="Options" width="29" height="32"/>
         <namedColor name="Background">
             <color red="0.94509803921568625" green="0.94509803921568625" blue="0.94509803921568625" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

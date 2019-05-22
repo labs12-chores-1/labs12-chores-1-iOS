@@ -13,11 +13,19 @@ class TaskDetailViewController: UIViewController, StoryboardInstantiatable {
     static var storyboardName: StoryboardName = "TaskDetailViewController"
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var commentTextField: UITextField!
+    @IBOutlet weak var sendButton: UIButton!
+    var noTaskDetailView: NoTaskDetailView!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.delegate = self
         tableView.dataSource = self
+        
+        noTaskDetailView = NoTaskDetailView.instantiate()
+        noTaskDetailView.frame = tableView.frame
+        view.insertSubview(noTaskDetailView, aboveSubview: tableView)
+        
         tableView.contentInset = UIEdgeInsets(top: 10, left: 0, bottom: 0, right: 0)
         tableView.rowHeight = 90
         tableView.tableFooterView = UIView()
@@ -30,13 +38,6 @@ class TaskDetailViewController: UIViewController, StoryboardInstantiatable {
     }
     
     
-    @IBAction func didTapSettingButton(_ sender: Any) {
-        let storyboard = UIStoryboard(name: "SettingsTableViewController", bundle: nil)
-        let settingsVC = storyboard.instantiateInitialViewController() ?? SettingsTableViewController.instantiate()
-        present(settingsVC, animated: true, completion: nil)
-    }
-    
-    
     @IBAction func didTapSendButton(_ sender: Any) {
     }
     
@@ -45,7 +46,8 @@ class TaskDetailViewController: UIViewController, StoryboardInstantiatable {
 extension TaskDetailViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        noTaskDetailView.alpha = (selectedGroup?.taskComments?.count ?? 0) == 0 ? 1 : 0
+        return selectedGroup?.taskComments?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
