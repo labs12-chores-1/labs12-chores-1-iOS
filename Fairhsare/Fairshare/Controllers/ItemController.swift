@@ -80,6 +80,46 @@ class ItemController {
     }
     
     
+    // MARK: - Load tasks
+    
+    // Loads tasks for the selected group
+    func loadTasks(completion: @escaping (Bool) -> Void = {_ in}) {
+        
+        guard let group = selectedGroup else { completion(false); return }
+        guard let accessToken = SessionManager.tokens?.idToken else {return}
+        
+        //        let url = baseURL.appendingPathComponent("item").appendingPathComponent("group").appendingPathComponent(String(group.groupID))
+        let url = baseURL.appendingPathComponent("task")
+        var request = URLRequest(url: url)
+        request.addValue("Bearer \(accessToken)", forHTTPHeaderField: "Authorization")
+        
+        Alamofire.request(request).validate().response { (response) in
+            
+            if let error = response.error {
+                print(error.localizedDescription)
+                completion(false)
+                return
+            }
+            
+            guard let data = response.data else {
+                print("Error: No data when trying to load items")
+                completion(false)
+                return
+            }
+            
+            do {
+                let taskList = try JSONDecoder().decode(TaskList.self, from: data)
+                group.tasks = taskList.data
+                completion(true)
+            } catch {
+                print("Error: Could not decode data into [Item]")
+                completion(false)
+                return
+            }
+        }
+    }
+    
+    
     // MARK:- Save items methods
     
     func saveItem(item: Item, completion: @escaping (Item?, Error?) -> Void) {
@@ -185,6 +225,23 @@ class ItemController {
         guard let accessToken = SessionManager.tokens?.idToken else { return }
         let headers: HTTPHeaders = ["Authorization": "Bearer \(accessToken)"]
         let url = baseURL.appendingPathComponent("item").appendingPathComponent(String(describing: id))
+        
+        Alamofire.request(url, method: .delete, headers: headers).validate().responseJSON { (response) in
+            switch response.result {
+            case .success(_):
+                completion(nil)
+                return
+            case .failure(let error):
+                completion(ItemError.backendError(String(data: response.data!, encoding: .utf8 )!, error))
+                return
+            }
+        }
+    }
+    
+    func deleteTask(id: Int, completion: @escaping (Error?) -> Void) {
+        guard let accessToken = SessionManager.tokens?.idToken else { return }
+        let headers: HTTPHeaders = ["Authorization": "Bearer \(accessToken)"]
+        let url = baseURL.appendingPathComponent("task").appendingPathComponent(String(describing: id))
         
         Alamofire.request(url, method: .delete, headers: headers).validate().responseJSON { (response) in
             switch response.result {
