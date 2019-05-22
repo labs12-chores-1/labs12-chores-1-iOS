@@ -95,7 +95,7 @@ class MainViewController: UIViewController, StoryboardInstantiatable, PopoverVie
         
         switch currentView {
         case .chore:
-            ItemController.shared.loadItems { (_) in
+            ItemController.shared.loadTasks { (_) in
                 UI {
                     self.addNewButton.setTitle("Add chore", for: .normal)
                     self.tableView.rowHeight = 90
@@ -188,8 +188,10 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ReuseIdentifier", for: indexPath)
+        
         guard let itemCell = tableView.dequeueReusableCell(withIdentifier: "ItemCell", for: indexPath) as? ItemTableViewCell,
             let historyCell = tableView.dequeueReusableCell(withIdentifier: "HistoryCell", for: indexPath) as? HistoryTableViewCell else { return cell }
+        
         itemCell.tintColor = UIColor(named: "Theme")
         itemCell.accessoryType = .none
         historyCell.accessoryType = .none
@@ -228,31 +230,61 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-        guard let cell = tableView.cellForRow(at: indexPath) else { return }
-        cellSelected(cell: cell, indexPath: indexPath)
+        switch currentView {
+        case .chore:
+            let storyboard = UIStoryboard(name: "TaskDetailViewController", bundle: nil)
+            let taskDetailVC = storyboard.instantiateInitialViewController() ?? TaskDetailViewController.instantiate()
+            present(taskDetailVC, animated: true, completion: nil)
+        case .grocery:
+            tableView.deselectRow(at: indexPath, animated: true)
+            guard let cell = tableView.cellForRow(at: indexPath) else { return }
+            cellSelected(cell: cell, indexPath: indexPath)
+        case .history, .stats:
+            break
+        }
     }
     
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         
         let delete = UITableViewRowAction(style: .destructive, title: "Delete") { (action, indexPath) in
             guard let selectedGroup = selectedGroup else { return }
-            guard let item = selectedGroup.items?[indexPath.row] else { return }
-            ItemController.shared.deleteItem(id: item.id ?? 0) {(_) in }
-            if selectedItems.contains(item) {
-                let index = selectedItems.index(of: item) ?? 0
-                selectedItems.remove(at: index)
+            
+            switch self.currentView {
+            case .chore:
+                guard let task = selectedGroup.tasks?[indexPath.row] else { return }
+                
+                ItemController.shared.deleteTask(id: task.id ?? 0) {(_) in }
+                if selectedTasks.contains(task) {
+                    let index = selectedTasks.index(of: task) ?? 0
+                    selectedItems.remove(at: index)
+                }
+                
+                selectedGroup.tasks?.remove(at: indexPath.row)
+            case .grocery:
+                guard let item = selectedGroup.items?[indexPath.row] else { return }
+                
+                ItemController.shared.deleteItem(id: item.id ?? 0) {(_) in }
+                if selectedItems.contains(item) {
+                    let index = selectedItems.index(of: item) ?? 0
+                    selectedItems.remove(at: index)
+                }
+                
+                selectedGroup.items?.remove(at: indexPath.row)
+            case .history, .stats:
+                break
             }
-            selectedGroup.items?.remove(at: indexPath.row)
+            
             self.tableView.deleteRows(at: [indexPath], with: .automatic)
         }
         
-        return currentView == .grocery ? [delete] : []
+        return currentView == .history ? [] : [delete]
     }
     
     private func cellSelected(cell: UITableViewCell, indexPath: IndexPath) {
         switch currentView {
-        case .chore, .grocery:
+        case .chore:
+            break
+        case .grocery:
             guard let item = selectedGroup?.items?[indexPath.row] else { return }
             if cell.accessoryType == .none {
                 selectedItems.append(item)
