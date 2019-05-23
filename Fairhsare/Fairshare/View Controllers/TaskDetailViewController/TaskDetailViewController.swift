@@ -108,4 +108,26 @@ extension TaskDetailViewController: UITableViewDelegate, UITableViewDataSource {
         return commentCell
     }
     
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        
+        let delete = UITableViewRowAction(style: .destructive, title: "Delete") { (action, indexPath) in
+            
+            guard let selectedGroup = selectedGroup else { return }
+            guard let userID = userObject?.userID else { return }
+            guard let comment = selectedGroup.comments?[indexPath.row] else { return }
+            
+            ItemController.shared.deleteComment(id: comment.id, completion: { (error) in
+                if let error = error {
+                    NSLog("Error deleting comment: \(error)")
+                } else {
+                    if comment.commentedBy == userID {
+                        selectedGroup.comments?.remove(at: indexPath.row)
+                        self.tableView.deleteRows(at: [indexPath], with: .automatic)
+                    }
+                }
+            })
+        }
+        return [delete]
+    }
+    
 }
