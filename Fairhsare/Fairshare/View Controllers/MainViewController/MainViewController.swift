@@ -40,7 +40,8 @@ class MainViewController: UIViewController, StoryboardInstantiatable, PopoverVie
         view.insertSubview(noItemsView, aboveSubview: tableView)
         
         tableView.contentInset = UIEdgeInsets(top: 10, left: 0, bottom: 0, right: 0)
-        tableView.rowHeight = 90
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = 90
         tableView.tableFooterView = UIView()
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "ReuseIdentifier")
         tableView.register(UINib(nibName: "ItemTableViewCell", bundle: nil), forCellReuseIdentifier: "ItemCell")
@@ -234,6 +235,11 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
         case .chore:
             let storyboard = UIStoryboard(name: "TaskDetailViewController", bundle: nil)
             let taskDetailVC = storyboard.instantiateInitialViewController() ?? TaskDetailViewController.instantiate()
+            
+            if let taskDVC = taskDetailVC as? TaskDetailViewController {
+                taskDVC.task = selectedGroup?.tasks?[indexPath.row]
+            }
+            
             present(taskDetailVC, animated: true, completion: nil)
         case .grocery:
             tableView.deselectRow(at: indexPath, animated: true)
