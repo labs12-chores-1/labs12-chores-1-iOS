@@ -370,6 +370,24 @@ class ItemController {
         }
     }
     
+    func deleteComment(id: Int?, completion: @escaping (Error?) -> Void) {
+        guard let id = id else { return }
+        guard let accessToken = SessionManager.tokens?.idToken else { return }
+        let headers: HTTPHeaders = ["Authorization": "Bearer \(accessToken)"]
+        let url = baseURL.appendingPathComponent("comment").appendingPathComponent(String(describing: id))
+        
+        Alamofire.request(url, method: .delete, headers: headers).validate().responseJSON { (response) in
+            switch response.result {
+            case .success(_):
+                completion(nil)
+                return
+            case .failure(let error):
+                completion(ItemError.backendError(String(data: response.data!, encoding: .utf8 )!, error))
+                return
+            }
+        }
+    }
+    
     
     // MARK: - Helpers
     

@@ -15,7 +15,7 @@ class TaskDetailViewController: UIViewController, StoryboardInstantiatable {
     @IBOutlet weak var commentTextField: UITextField!
     @IBOutlet weak var sendButton: UIButton!
     var noTaskDetailView: NoTaskDetailView!
-    
+    var task: Task?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,9 +27,16 @@ class TaskDetailViewController: UIViewController, StoryboardInstantiatable {
         view.insertSubview(noTaskDetailView, aboveSubview: tableView)
         
         tableView.contentInset = UIEdgeInsets(top: 10, left: 0, bottom: 0, right: 0)
-        tableView.rowHeight = 90
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = 90
         tableView.tableFooterView = UIView()
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "ReuseIdentifier")
+        tableView.register(UINib(nibName: "CommentTableViewCell", bundle: nil), forCellReuseIdentifier: "CommentCell")
+        
+        guard let taskID = task?.id else { return }
+        ItemController.shared.loadComments(taskID: taskID, completion: { (success) in
+            self.tableView.reloadData()
+        })
     }
     
     
@@ -39,20 +46,88 @@ class TaskDetailViewController: UIViewController, StoryboardInstantiatable {
     
     
     @IBAction func didTapSendButton(_ sender: Any) {
+        guard let commentString = commentTextField.text else { return }
+        guard let group = selectedGroup else { return }
+        guard let userID = userObject?.userID else { return }
+        guard let taskID = task?.id else { return }
+        
+        let comment = Comment(commentString: commentString, taskID: taskID,
+                              groupID: group.groupID, commentedBy: userID)
+        
+        ItemController.shared.saveComment(comment: comment) { (comment, error) in
+            if let error = error {
+                NSLog("Error creating comment: \(error)")
+            }
+            
+            if let comment = comment {
+                selectedGroup?.comments?.append(comment)
+                self.tableView.reloadData()
+            }
+        }
     }
+    
+    lazy var formatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .short
+        formatter.timeStyle = .short
+        return formatter
+    }()
     
 }
 
 extension TaskDetailViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        noTaskDetailView.alpha = (selectedGroup?.taskComments?.count ?? 0) == 0 ? 1 : 0
-        return selectedGroup?.taskComments?.count ?? 0
+        noTaskDetailView.alpha = (selectedGroup?.comments?.count ?? 0) == 0 ? 1 : 0 //selectedGroup?.
+        return selectedGroup?.comments?.count ?? 0 // selectedGroup?.
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ReuseIdentifier", for: indexPath)
-        return cell
+        cell.tintColor = UIColor(named: "Theme")
+        cell.textLabel?.numberOfLines = 0
+        cell.accessoryType = .none
+        
+        guard let commentCell = tableView.dequeueReusableCell(withIdentifier: "CommentCell", for: indexPath) as? CommentTableViewCell else { return cell }
+        commentCell.tintColor = UIColor(named: "Theme")
+        commentCell.accessoryType = .none
+        commentCell.selectionStyle = .none
+        
+        let comment = selectedGroup?.comments?[indexPath.row]
+        commentCell.commentStringLabel.text = comment?.commentString
+        
+        if let commentedOn = comment?.commentedOn {
+            let commentedOnDate = commentedOn.stringToDate()
+            commentCell.commentedOnLabel.text = formatter.string(from: commentedOnDate)
+        }
+        
+        if let name = userObject?.name {
+            commentCell.commentedByLabel.text = name
+        }
+        
+        return commentCell
+    }
+    
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        
+        let delete = UITableViewRowAction(style: .destructive, title: "Delete") { (action, indexPath) in
+            
+            guard let selectedGroup = selectedGroup else { return }
+            guard let userID = userObject?.userID else { return }
+            guard let comment = selectedGroup.comments?[indexPath.row] else { return }
+            
+            ItemController.shared.deleteComment(id: comment.id, completion: { (error) in
+                if let error = error {
+                    NSLog("Error deleting comment: \(error)")
+                } else {
+                    if comment.commentedBy == userID {
+                        selectedGroup.comments?.remove(at: indexPath.row)
+                        self.tableView.deleteRows(at: [indexPath], with: .automatic)
+                    }
+                }
+            })
+        }
+        return [delete]
     }
     
 }
