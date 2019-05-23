@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="WRf-qV-Wbd" customClass="CommentTableViewCell" customModule="Fairshare" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="120"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="WRf-qV-Wbd" id="uMK-rg-VIV">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="119.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mPX-fj-Kxa">
+                        <rect key="frame" x="8" y="8" width="304" height="103.5"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="S1f-MP-0mN">
+                                <rect key="frame" x="0.0" y="0.0" width="224" height="103.5"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Comment" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YFa-qg-dsN">
+                                        <rect key="frame" x="0.0" y="0.0" width="224" height="81"/>
+                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="May 23, 2019" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YON-oc-IZ0">
+                                        <rect key="frame" x="0.0" y="89" width="224" height="14.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                        <color key="textColor" red="0.22316629254078038" green="0.43120226793482819" blue="0.17981863816546306" alpha="0.39966823629999998" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ilqar Ilyasov" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.80000001192092896" translatesAutoresizingMaskIntoConstraints="NO" id="tk7-Vy-X7h">
+                                <rect key="frame" x="224" y="0.0" width="80" height="103.5"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="80" id="JUU-tu-88t"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="16"/>
+                                <color key="textColor" red="0.40797509520000003" green="0.40797509520000003" blue="0.40797509520000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                    </stackView>
+                </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                <constraints>
+                    <constraint firstItem="mPX-fj-Kxa" firstAttribute="leading" secondItem="uMK-rg-VIV" secondAttribute="leading" constant="8" id="4ik-x1-kQm"/>
+                    <constraint firstItem="mPX-fj-Kxa" firstAttribute="top" secondItem="uMK-rg-VIV" secondAttribute="top" constant="8" id="8q7-Qv-QQd"/>
+                    <constraint firstAttribute="trailing" secondItem="mPX-fj-Kxa" secondAttribute="trailing" constant="8" id="PB4-pX-pYR"/>
+                    <constraint firstAttribute="bottom" secondItem="mPX-fj-Kxa" secondAttribute="bottom" constant="8" id="gAL-x3-vpK"/>
+                </constraints>
+            </tableViewCellContentView>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <viewLayoutGuide key="safeArea" id="z5a-X3-YKd"/>
+            <connections>
+                <outlet property="commentStringLabel" destination="YFa-qg-dsN" id="CLX-tz-8om"/>
+                <outlet property="commentedByLabel" destination="tk7-Vy-X7h" id="4Ia-hP-ZR1"/>
+                <outlet property="commentedOnLabel" destination="YON-oc-IZ0" id="v2w-SJ-kXb"/>
+            </connections>
+            <point key="canvasLocation" x="137.59999999999999" y="149.32533733133434"/>
+        </tableViewCell>
+    </objects>
+</document>
