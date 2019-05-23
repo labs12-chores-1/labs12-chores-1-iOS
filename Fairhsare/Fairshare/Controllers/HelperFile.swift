@@ -12,9 +12,10 @@ import Foundation
 extension String {
     func stringToDate() -> Date {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "E, d MMM yyyy HH:mm:ss Z"
-        
-        return dateFormatter.date(from: self)!
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+        let date = dateFormatter.date(from: self)
+        return date!
     }
 }
 
