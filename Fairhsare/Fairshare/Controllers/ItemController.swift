@@ -20,7 +20,7 @@ class ItemController {
     private var baseURL = URL(string: "https://labs12-fairshare.herokuapp.com/api")!
     static let shared = ItemController()
     
-    // MARK: - Load items
+    // MARK: - Loading GET
     
     // Loads items for the selected group
     func loadItems(completion: @escaping (Bool) -> Void = {_ in}) {
@@ -79,16 +79,12 @@ class ItemController {
         }
     }
     
-    
-    // MARK: - Load tasks
-    
     // Loads tasks for the selected group
     func loadTasks(completion: @escaping (Bool) -> Void = {_ in}) {
         
         guard let group = selectedGroup else { completion(false); return }
         guard let accessToken = SessionManager.tokens?.idToken else {return}
         
-        //        let url = baseURL.appendingPathComponent("item").appendingPathComponent("group").appendingPathComponent(String(group.groupID))
         let url = baseURL.appendingPathComponent("task")
         var request = URLRequest(url: url)
         request.addValue("Bearer \(accessToken)", forHTTPHeaderField: "Authorization")
@@ -135,7 +131,61 @@ class ItemController {
     }
     
     
-    // MARK:- Save items methods
+    func loadComments(taskID: Int, completion: @escaping (Bool) -> Void = {_ in}) {
+        
+        guard let group = selectedGroup else { completion(false); return }
+        guard let accessToken = SessionManager.tokens?.idToken else {return}
+        
+        let url = baseURL.appendingPathComponent("comment")
+            .appendingPathComponent("task")
+            .appendingPathComponent("\(taskID)")
+        
+        var request = URLRequest(url: url)
+        request.addValue("Bearer \(accessToken)", forHTTPHeaderField: "Authorization")
+        
+        Alamofire.request(request).validate().response { (response) in
+            
+            if let error = response.error {
+                print(error.localizedDescription)
+                completion(false)
+                return
+            }
+            
+            guard let data = response.data else {
+                print("Error: No data when trying to load items")
+                completion(false)
+                return
+            }
+            
+            do {
+                let commentList = try JSONDecoder().decode(CommentList.self, from: data)
+                group.comments = [Comment]() // Initiliaze array with empty value
+                
+                for comment in commentList.data {
+                    if comment.commentedBy == userObject?.userID { // Check the owner of task
+                        
+                        if let result = group.comments?.contains(comment) {
+                            switch result {
+                            case true: // If it's already inside of our local array do not do anything
+                                break
+                            case false: // If task is a new task then add it to the array
+                                group.comments?.append(comment)
+                            }
+                        }
+                    }
+                }
+                
+                completion(true)
+            } catch {
+                print("Error: Could not decode data into [CommentList]: \(error)")
+                completion(false)
+                return
+            }
+        }
+    }
+    
+    
+    // MARK:- Saving POST
     
     func saveItem(item: Item, completion: @escaping (Item?, Error?) -> Void) {
         
@@ -236,6 +286,56 @@ class ItemController {
     }
     
     
+    func saveComment(comment: Comment, completion: @escaping (Comment?, Error?) -> Void) {
+        
+        guard let accessToken = SessionManager.tokens?.idToken else { return }
+        
+        let headers: HTTPHeaders = ["Authorization": "Bearer \(accessToken)"]
+        let comment = comment
+        
+        var url = baseURL.appendingPathComponent("comment")
+        
+        var method = HTTPMethod.post
+        
+        if let id = comment.id {
+            url = url.appendingPathComponent(String(describing: id))
+            method = .put
+        }
+        
+        var json: Parameters
+        
+        do {
+            json = try commentToJSON(comment: comment)
+            print(json)
+        }
+        catch {
+            completion(nil, error)
+            return
+        }
+        
+        Alamofire.request(url, method: method, parameters: json, encoding: JSONEncoding.default, headers: headers).validate().responseJSON { (response) in
+
+            switch response.result {
+            case .success(let value):
+                guard let jsonDict = value as? [String: Any],
+                    let itemID = jsonDict["id"] as? [Int] else {
+                        completion(nil, ItemError.noIdReturned)
+                        return
+                }
+
+                comment.id = itemID.first
+                completion(comment, nil)
+
+            case .failure(let error):
+                completion(nil, ItemError.backendError(String(data: response.data!, encoding: .utf8 )!, error))
+                return
+            }
+        }
+    }
+    
+    
+    // MARK: - Deleting DELETE
+    
     func deleteItem(id: Int, completion: @escaping (Error?) -> Void) {
         guard let accessToken = SessionManager.tokens?.idToken else { return }
         let headers: HTTPHeaders = ["Authorization": "Bearer \(accessToken)"]
@@ -270,6 +370,8 @@ class ItemController {
         }
     }
     
+    
+    // MARK: - Helpers
     
     func checkout(items: [Item], withTotal total: Double, completion: @escaping (Bool) -> Void) {
         
@@ -310,4 +412,8 @@ class ItemController {
         return try! JSONSerialization.jsonObject(with: jsonData, options: []) as! [String: Any]
     }
     
+    func commentToJSON(comment: Comment) throws -> Parameters {
+        let jsonData = try! JSONEncoder().encode(comment)
+        return try! JSONSerialization.jsonObject(with: jsonData, options: [.allowFragments]) as! [String: Any]
+    }
 }
