@@ -233,13 +233,13 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch currentView {
         case .chore:
+            tableView.deselectRow(at: indexPath, animated: true)
             let storyboard = UIStoryboard(name: "TaskDetailViewController", bundle: nil)
             let taskDetailVC = storyboard.instantiateInitialViewController() ?? TaskDetailViewController.instantiate()
             
             if let taskDVC = taskDetailVC as? TaskDetailViewController {
                 taskDVC.task = selectedGroup?.tasks?[indexPath.row]
             }
-            
             present(taskDetailVC, animated: true, completion: nil)
         case .grocery:
             tableView.deselectRow(at: indexPath, animated: true)
