@@ -14,6 +14,7 @@ class TaskDetailViewController: UIViewController, StoryboardInstantiatable {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var commentTextField: UITextField!
     @IBOutlet weak var sendButton: UIButton!
+    @IBOutlet weak var taskTitleLabel: UILabel!
     var noTaskDetailView: NoTaskDetailView!
     var task: Task?
     
@@ -37,6 +38,13 @@ class TaskDetailViewController: UIViewController, StoryboardInstantiatable {
         ItemController.shared.loadComments(taskID: taskID, completion: { (success) in
             self.tableView.reloadData()
         })
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if let task = task {
+            taskTitleLabel.text = task.taskName
+        }
     }
     
     
