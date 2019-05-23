@@ -20,19 +20,26 @@ class NewItemPopoverView: UIView, NibInstantiatable {
     
     @IBAction func addItemPressed(_ sender: Any) {
         guard let name = itemName.text else { return }
-        
         guard let selectedGroup = selectedGroup else { return }
-        let newItem = Item(name: name, measurement: nil, purchased: false, price: 0, quantity: 0, group: selectedGroup)
+        guard let user = userObject else { return }
         
-        ItemController.shared.saveItem(item: newItem) { (item, _) in
-            
-            // If statement is just for  Mock
-            if let item = item {
-                selectedGroup.items?.append(item)
+        switch globalCurrentView {
+        case .chore:
+            let task = Task(id: nil, taskName: name, taskDescription: nil, completed: nil, completedBy: nil, completedOn: nil, group: selectedGroup, assigneeName: nil, createdBy: user.name)
+            ItemController.shared.saveTask(task: task) { (task, _) in
+                self.delegate?.updatesNeeded()
+                popover.dismiss()
             }
-            
-            self.delegate?.updatesNeeded()
-            popover.dismiss()
+        case .grocery:
+            let item = Item(name: name, measurement: nil, purchased: false, price: 0, quantity: 0, group: selectedGroup)
+            ItemController.shared.saveItem(item: item) { (item, _) in
+                self.delegate?.updatesNeeded()
+                popover.dismiss()
+            }
+        case .history:
+            break
+        case .stats:
+            break
         }
     }
     

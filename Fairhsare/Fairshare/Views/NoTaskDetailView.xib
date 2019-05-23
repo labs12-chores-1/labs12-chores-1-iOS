@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="Ssd-Gy-5xm" customClass="NoTaskDetailView" customModule="Fairshare" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No detail for this task" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.75" translatesAutoresizingMaskIntoConstraints="NO" id="7Lv-4Q-CFA">
+                    <rect key="frame" x="40" y="398" width="334" height="60"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="60" id="qKS-tS-ByZ"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="23"/>
+                    <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="7Lv-4Q-CFA" firstAttribute="leading" secondItem="WB7-Up-PET" secondAttribute="leading" constant="40" id="28n-pQ-ynm"/>
+                <constraint firstItem="7Lv-4Q-CFA" firstAttribute="centerY" secondItem="Ssd-Gy-5xm" secondAttribute="centerY" constant="-20" id="FVJ-AY-rA5"/>
+                <constraint firstItem="WB7-Up-PET" firstAttribute="trailing" secondItem="7Lv-4Q-CFA" secondAttribute="trailing" constant="40" id="Gyr-yT-GaQ"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="WB7-Up-PET"/>
+            <point key="canvasLocation" x="-55.200000000000003" y="-59.11330049261084"/>
+        </view>
+    </objects>
+</document>

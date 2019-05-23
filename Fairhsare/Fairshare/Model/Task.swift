@@ -8,6 +8,10 @@
 
 import Foundation
 
+struct TaskList: Codable {
+    let data: [Task]
+}
+
 class Task: Codable {
     var id: Int?
     var taskName: String // Should have a value
@@ -18,6 +22,7 @@ class Task: Codable {
     var groupID: Int // Should have a value
     var assigneeName: String?
     var createdBy: String? // Current User name
+    var recurringTime: String?
     
     init(id: Int? = nil,
          taskName: String,
@@ -27,7 +32,8 @@ class Task: Codable {
          completedOn: Date? = nil,
          group: Group,
          assigneeName: String? = nil,
-         createdBy: String? = nil) {
+         createdBy: String? = nil,
+         recurringTime: String? = nil) {
         
         self.id = id
         self.taskName = taskName
@@ -38,6 +44,7 @@ class Task: Codable {
         self.groupID = group.groupID
         self.assigneeName = assigneeName
         self.createdBy = createdBy
+        self.recurringTime = recurringTime
     }
 }
 
