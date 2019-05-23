@@ -64,8 +64,14 @@ class TaskDetailViewController: UIViewController, StoryboardInstantiatable {
                 self.tableView.reloadData()
             }
         }
-        
     }
+    
+    lazy var formatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .short
+        formatter.timeStyle = .short
+        return formatter
+    }()
     
 }
 
@@ -78,19 +84,22 @@ extension TaskDetailViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ReuseIdentifier", for: indexPath)
-        
-        guard let commentCell = tableView.dequeueReusableCell(withIdentifier: "CommentCell", for: indexPath) as? CommentTableViewCell else { return cell }
-        
-        commentCell.tintColor = UIColor(named: "Theme")
-        commentCell.accessoryType = .none
-        
         cell.tintColor = UIColor(named: "Theme")
         cell.textLabel?.numberOfLines = 0
         cell.accessoryType = .none
         
+        guard let commentCell = tableView.dequeueReusableCell(withIdentifier: "CommentCell", for: indexPath) as? CommentTableViewCell else { return cell }
+        commentCell.tintColor = UIColor(named: "Theme")
+        commentCell.accessoryType = .none
+        commentCell.selectionStyle = .none
+        
         let comment = selectedGroup?.comments?[indexPath.row]
         commentCell.commentStringLabel.text = comment?.commentString
-        commentCell.commentedOnLabel.text = comment?.commentedOn
+        
+        if let commentedOn = comment?.commentedOn {
+            let commentedOnDate = commentedOn.stringToDate()
+            commentCell.commentedOnLabel.text = formatter.string(from: commentedOnDate)
+        }
         
         if let name = userObject?.name {
             commentCell.commentedByLabel.text = name
