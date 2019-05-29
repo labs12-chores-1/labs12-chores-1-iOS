@@ -69,7 +69,11 @@ class TaskDetailViewController: UIViewController, StoryboardInstantiatable {
             
             if let comment = comment {
                 selectedGroup?.comments?.append(comment)
-                self.tableView.reloadData()
+                
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                    self.commentTextField.text = ""
+                }
             }
         }
     }
@@ -100,6 +104,7 @@ extension TaskDetailViewController: UITableViewDelegate, UITableViewDataSource {
         commentCell.tintColor = UIColor(named: "Theme")
         commentCell.accessoryType = .none
         commentCell.selectionStyle = .none
+//        commentCell.backgroundColor = #colorLiteral(red: 0.9671966434, green: 0.9614465833, blue: 0.9716162086, alpha: 1)
         
         let comment = selectedGroup?.comments?[indexPath.row]
         commentCell.commentStringLabel.text = comment?.commentString
@@ -136,6 +141,21 @@ extension TaskDetailViewController: UITableViewDelegate, UITableViewDataSource {
             })
         }
         return [delete]
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerView = TaskDetailHeaderView.instantiate() as TaskDetailHeaderView
+        
+        if let task = task {
+            headerView.task = task
+        }
+        
+        headerView.frame = CGRect(x: 0, y: 0, width: 320, height: 160)
+        return headerView
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 160
     }
     
 }

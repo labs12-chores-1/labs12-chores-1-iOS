@@ -61,11 +61,6 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="kko-Im-K7U">
                                 <rect key="frame" x="0.0" y="146" width="414" height="750"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <view key="tableFooterView" contentMode="scaleToFill" id="Yzm-vV-0kN">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="100"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </view>
                                 <connections>
                                     <outlet property="dataSource" destination="rZ2-Tq-UPc" id="fcf-gY-6Sv"/>
                                     <outlet property="delegate" destination="rZ2-Tq-UPc" id="IbV-Hq-0yh"/>
@@ -153,7 +148,7 @@
     <resources>
         <image name="BackChevron" width="12" height="21"/>
         <namedColor name="Background">
-            <color red="0.94509803921568625" green="0.94509803921568625" blue="0.94509803921568625" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color name="alternatingContentBackgroundColor" catalog="System" colorSpace="catalog"/>
         </namedColor>
         <namedColor name="Theme">
             <color red="0.16470588235294117" green="0.5725490196078431" blue="0.17647058823529413" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
