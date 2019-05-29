@@ -26,7 +26,7 @@
                                     <constraint firstAttribute="height" constant="144" id="NzV-Eg-TTT"/>
                                 </constraints>
                                 <color key="tintColor" red="0.25877216927637969" green="0.5" blue="0.20850845593493122" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                <state key="normal" image="Fairshare-ferris-wheel"/>
+                                <state key="normal" image="Fairshare-1024"/>
                             </button>
                         </subviews>
                         <color key="backgroundColor" name="Theme"/>
@@ -43,7 +43,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Fairshare-ferris-wheel" width="512" height="512"/>
+        <image name="Fairshare-1024" width="1024" height="1024"/>
         <namedColor name="Theme">
             <color red="0.16470588235294117" green="0.5725490196078431" blue="0.17647058823529413" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
