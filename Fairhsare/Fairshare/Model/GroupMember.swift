@@ -8,7 +8,6 @@
 
 import Foundation
 
-
 struct GroupMember: Codable {
     
     var id: Int
