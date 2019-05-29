@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="pbQ-4q-ePH" userLabel="Users popover view" customClass="UsersPopoverView" customModule="Fairshare" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="260"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="USERS" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cgd-gv-Qyj">
+                    <rect key="frame" x="16" y="16" width="343" height="19.5"/>
+                    <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="16"/>
+                    <color key="textColor" red="0.42112151019999999" green="0.42112151019999999" blue="0.42112151019999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6fv-b6-FHV">
+                    <rect key="frame" x="16" y="43.5" width="343" height="166.5"/>
+                </pickerView>
+            </subviews>
+            <color key="backgroundColor" name="Background"/>
+            <constraints>
+                <constraint firstItem="6fv-b6-FHV" firstAttribute="trailing" secondItem="rQ7-HJ-THY" secondAttribute="trailing" constant="-16" id="1Yj-pU-hNc"/>
+                <constraint firstAttribute="trailing" secondItem="Cgd-gv-Qyj" secondAttribute="trailing" constant="16" id="2E9-6a-zEM"/>
+                <constraint firstItem="6fv-b6-FHV" firstAttribute="top" secondItem="Cgd-gv-Qyj" secondAttribute="bottom" constant="8" id="CUu-mV-JNl"/>
+                <constraint firstItem="rQ7-HJ-THY" firstAttribute="bottom" secondItem="6fv-b6-FHV" secondAttribute="bottom" constant="16" id="CgU-oo-z34"/>
+                <constraint firstItem="Cgd-gv-Qyj" firstAttribute="leading" secondItem="pbQ-4q-ePH" secondAttribute="leading" constant="16" id="TAx-pM-Ud5"/>
+                <constraint firstItem="6fv-b6-FHV" firstAttribute="leading" secondItem="rQ7-HJ-THY" secondAttribute="leading" constant="16" id="j7R-do-gvS"/>
+                <constraint firstItem="Cgd-gv-Qyj" firstAttribute="top" secondItem="pbQ-4q-ePH" secondAttribute="top" constant="16" id="o11-66-Rff"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="rQ7-HJ-THY"/>
+            <connections>
+                <outlet property="groupsLabel" destination="Cgd-gv-Qyj" id="rt0-rW-jd5"/>
+                <outlet property="userPickerView" destination="6fv-b6-FHV" id="if4-tt-F1G"/>
+            </connections>
+            <point key="canvasLocation" x="138.40000000000001" y="153.82308845577214"/>
+        </view>
+    </objects>
+    <resources>
+        <namedColor name="Background">
+            <color name="alternatingContentBackgroundColor" catalog="System" colorSpace="catalog"/>
+        </namedColor>
+    </resources>
+</document>
