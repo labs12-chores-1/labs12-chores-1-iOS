@@ -11,7 +11,5 @@ import Foundation
 class NewTaskPopoverView: UIView, NibInstantiatable {
     
     static var nibName: NibName = "NewTaskPopoverView"
-    
-
 
 }

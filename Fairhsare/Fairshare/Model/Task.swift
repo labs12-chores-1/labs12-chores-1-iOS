@@ -23,6 +23,7 @@ class Task: Codable {
     var assigneeName: String?
     var createdBy: String? // Current User name
     var recurringTime: String?
+    var numberOfComments: Int?
     
     init(id: Int? = nil,
          taskName: String,
@@ -33,7 +34,8 @@ class Task: Codable {
          group: Group,
          assigneeName: String? = nil,
          createdBy: String? = nil,
-         recurringTime: String? = nil) {
+         recurringTime: String? = nil,
+         numberOfComments: Int? = 0) {
         
         self.id = id
         self.taskName = taskName
@@ -45,6 +47,7 @@ class Task: Codable {
         self.assigneeName = assigneeName
         self.createdBy = createdBy
         self.recurringTime = recurringTime
+        self.numberOfComments = numberOfComments
     }
 }
 

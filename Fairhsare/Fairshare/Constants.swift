@@ -67,6 +67,14 @@ struct Popovers {
         popover.show(popoverView, point: startPoint)
     }
     
+    static func triggerUsersPopover(_ delegate: PopoverViewDelegate) {
+        let popoverView = UsersPopoverView.instantiate()
+        popoverView.delegate = delegate
+        popoverView.frame = CGRect(x: 20, y: 0, width: screen.width - 40, height: 250)
+        let startPoint = CGPoint(x: screen.width / 2, y: (screen.height / 2) - 125)
+        popover.show(popoverView, point: startPoint)
+    }
+    
     static func triggerNewGroupPopover(_ delegate: PopoverViewDelegate) {
         let popoverView = NewGroupPopoverView.instantiate()
         popoverView.delegate = delegate

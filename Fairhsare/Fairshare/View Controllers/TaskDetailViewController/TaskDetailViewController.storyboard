@@ -22,35 +22,32 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Gh5-PN-XX6" userLabel="Header view">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="146"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="ZnW-hu-8KY">
-                                        <rect key="frame" x="8" y="78.5" width="398" height="29"/>
-                                        <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LW2-n1-6oy" userLabel="Back button">
-                                                <rect key="frame" x="0.0" y="0.0" width="30" height="29"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="30" id="IZF-Vo-lef"/>
-                                                </constraints>
-                                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <state key="normal" image="BackChevron"/>
-                                                <connections>
-                                                    <action selector="didTapBackButton:" destination="rZ2-Tq-UPc" eventType="touchUpInside" id="XHA-Zc-2dU"/>
-                                                </connections>
-                                            </button>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Back" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.60000002384185791" translatesAutoresizingMaskIntoConstraints="NO" id="aVl-M4-ePA" userLabel="Back label">
-                                                <rect key="frame" x="38" y="0.0" width="360" height="29"/>
-                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
-                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                        </subviews>
-                                    </stackView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LW2-n1-6oy" userLabel="Back button">
+                                        <rect key="frame" x="8" y="59" width="80" height="22"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="80" id="qW5-5i-WDx"/>
+                                        </constraints>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="20" maxY="0.0"/>
+                                        <state key="normal" title="Back" image="BackChevron"/>
+                                        <connections>
+                                            <action selector="didTapBackButton:" destination="rZ2-Tq-UPc" eventType="touchUpInside" id="XHA-Zc-2dU"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.60000002384185791" translatesAutoresizingMaskIntoConstraints="NO" id="aVl-M4-ePA" userLabel="Back label">
+                                        <rect key="frame" x="16" y="97" width="382" height="29"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" name="Theme"/>
                                 <constraints>
-                                    <constraint firstItem="ZnW-hu-8KY" firstAttribute="centerX" secondItem="Gh5-PN-XX6" secondAttribute="centerX" id="6uH-BG-2kO"/>
-                                    <constraint firstItem="ZnW-hu-8KY" firstAttribute="leading" secondItem="Gh5-PN-XX6" secondAttribute="leading" constant="8" id="Djs-25-kgU"/>
-                                    <constraint firstAttribute="trailing" secondItem="ZnW-hu-8KY" secondAttribute="trailing" constant="8" id="Gwt-EH-hAo"/>
-                                    <constraint firstItem="ZnW-hu-8KY" firstAttribute="centerY" secondItem="Gh5-PN-XX6" secondAttribute="centerY" constant="20" id="JtL-zc-fjk"/>
+                                    <constraint firstItem="aVl-M4-ePA" firstAttribute="leading" secondItem="Gh5-PN-XX6" secondAttribute="leading" constant="16" id="SJu-RG-fBD"/>
+                                    <constraint firstAttribute="bottom" secondItem="aVl-M4-ePA" secondAttribute="bottom" constant="20" id="Z1e-vP-Mf2"/>
+                                    <constraint firstItem="LW2-n1-6oy" firstAttribute="leading" secondItem="Gh5-PN-XX6" secondAttribute="leading" constant="8" id="a2H-sV-TvX"/>
+                                    <constraint firstAttribute="trailing" secondItem="aVl-M4-ePA" secondAttribute="trailing" constant="16" id="mKu-E6-2u7"/>
+                                    <constraint firstItem="aVl-M4-ePA" firstAttribute="top" secondItem="LW2-n1-6oy" secondAttribute="bottom" constant="16" id="zJM-5M-wdf"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowRadius">
@@ -140,17 +137,18 @@
                         <outlet property="commentTextField" destination="JKk-Bb-3Wx" id="vht-4c-uoX"/>
                         <outlet property="sendButton" destination="DmZ-j2-3x6" id="NTD-SP-Gwh"/>
                         <outlet property="tableView" destination="kko-Im-K7U" id="idm-4R-kak"/>
+                        <outlet property="taskTitleLabel" destination="aVl-M4-ePA" id="rNE-ZG-pxf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="36R-Gf-ixN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="93.599999999999994" y="138.91625615763547"/>
+            <point key="canvasLocation" x="92.753623188405811" y="138.61607142857142"/>
         </scene>
     </scenes>
     <resources>
         <image name="BackChevron" width="12" height="21"/>
         <namedColor name="Background">
-            <color red="0.94509803921568625" green="0.94509803921568625" blue="0.94509803921568625" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color name="alternatingContentBackgroundColor" catalog="System" colorSpace="catalog"/>
         </namedColor>
         <namedColor name="Theme">
             <color red="0.16470588235294117" green="0.5725490196078431" blue="0.17647058823529413" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

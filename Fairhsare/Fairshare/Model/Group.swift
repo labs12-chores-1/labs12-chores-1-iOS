@@ -30,6 +30,12 @@ class Group: Codable, Equatable {
     var items: [Item]? // api/group/id
     var tasks: [Task]? // api/group/id
     var comments: [Comment]?
+    var users: [User] = [User(email: "", name: "Adalberto May", profilePicture: ""),
+                         User(email: "", name: "Estevan Rodriguez", profilePicture: ""),
+                         User(email: "", name: "Ilqar Ilyasov", profilePicture: ""),
+                         User(email: "", name: "Itel Domingo", profilePicture: ""),
+                         User(email: "", name: "Joseph Chretien-Golden", profilePicture: ""),
+                         User(email: "", name: "Tsai Huang", profilePicture: "")]
     
     enum CodingKeys: String, CodingKey {
         case name
